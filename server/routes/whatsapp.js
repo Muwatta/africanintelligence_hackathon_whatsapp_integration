@@ -21,4 +21,22 @@ router.post('/webhook', (req, res) => {
   res.status(200).json({ reply });
 });
 
+async function sendLoad(load) {
+  const resp = await fetch(
+    'https://q27ms9pp-6000.uks1.devtunnels.ms/api/whatsapp/load',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ load }),
+    }
+  );
+  if (!resp.ok) {
+    console.error('Failed to send load:', resp.statusText);
+  } else {
+    const data = await resp.json();
+    console.log('Load response:', data);
+    console.log('Load sent successfully');
+  }
+}
+
 module.exports = router;
